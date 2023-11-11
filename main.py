@@ -1,3 +1,5 @@
+from replit import clear
+from art import logo
 
 def add(n1, n2):
   return n1 + n2
@@ -11,6 +13,8 @@ def multiply(n1,n2):
 def divide(n1,n2):
   return n1 / n2
 
+
+  
 operations = {
   "+": add,
   "-": subtract,
@@ -18,39 +22,30 @@ operations = {
   "/": divide
 }
 
-num1= int(input("What's the first number?: "))
-
-for symbol in operations:
-  print(symbol)
-
-operation_symbol = input("Pick an operation_symbol from the line above: ")
-
-num2 = int(input("What's the second number?: "))
-
-calculation_function = operations[operation_symbol]
-answer = calculation_function(num1, num2)
-
-print(f"{num1} {operation_symbol} {num2} = {answer}")
-
-continuing = True 
-
-while continuing:
+def calculator(): 
+  print(logo)
   
-  be_continue = input("You can be continue, selection another operation with the result. Type 'yes' or 'not'.")
-  continuing = (be_continue == "yes")
-  if continuing:
-    
-    for symbol in operations:
-      print(symbol)
+  num1= float(input("What's the first number?: "))
 
-    operation_symbol = input("Pick an operation_symbol from the line above: ")
-    
-    another_num = int(input("What's the next number?: "))
+  for symbol in operations:
+    print(symbol)
+  should_continue = True
+
+  while should_continue:
+    operation_symbol = input("Pick an operation: ")
+  
+    num2 = int(input("What's the next number?: "))
+
     calculation_function = operations[operation_symbol]
-    another_answer = calculation_function(answer, another_num)
-    
-    
-    
-    print(f"{answer} {operation_symbol} {another_num} = {another_answer}")
+  
+    answer = calculation_function(num1, num2)
 
-    answer = another_answer
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
+  
+    if input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ") == "y":
+      num1 = answer
+  else:
+    should_continue = False
+    clear()
+    calculator()
+calculator()
